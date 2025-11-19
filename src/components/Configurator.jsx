@@ -55,25 +55,25 @@ export default function Configurator({ onCreated }) {
   }
 
   return (
-    <section className="relative py-10 px-6">
+    <section className="relative py-8 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-1 bg-slate-900/60 border border-white/10 rounded-xl p-5">
-          <h3 className="text-white font-semibold mb-3">Map</h3>
-          <select value={selectedMap} onChange={(e) => setSelectedMap(e.target.value)} className="w-full bg-slate-800 text-white rounded px-3 py-2 border border-white/10">
+        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
+          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">MAP</h3>
+          <select value={selectedMap} onChange={(e) => setSelectedMap(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60">
             {maps.map(m => (
               <option key={m.id} value={m.code}>{m.name}</option>
             ))}
           </select>
         </div>
-        <div className="md:col-span-1 bg-slate-900/60 border border-white/10 rounded-xl p-5">
-          <h3 className="text-white font-semibold mb-3">Laps</h3>
-          <input type="number" min={1} max={100} value={laps} onChange={(e) => setLaps(e.target.value)} className="w-full bg-slate-800 text-white rounded px-3 py-2 border border-white/10" />
+        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
+          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">LAPS</h3>
+          <input type="number" min={1} max={100} value={laps} onChange={(e) => setLaps(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60" />
         </div>
-        <div className="md:col-span-1 bg-slate-900/60 border border-white/10 rounded-xl p-5">
-          <h3 className="text-white font-semibold mb-3">Vehicles</h3>
+        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
+          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">VEHICLES</h3>
           <div className="flex flex-wrap gap-2 max-h-40 overflow-auto pr-1">
             {vehicles.map(v => (
-              <button key={v.id} onClick={() => toggleVehicle(v.code)} className={`px-3 py-2 rounded text-sm border ${selectedVehicles.includes(v.code) ? 'bg-green-600/30 border-green-500/50 text-green-200' : 'bg-slate-800 border-white/10 text-white/80'}`}>
+              <button key={v.id} onClick={() => toggleVehicle(v.code)} className={`px-3 py-2 rounded text-xs border tracking-wide ${selectedVehicles.includes(v.code) ? 'bg-yellow-500/20 border-yellow-500 text-yellow-200' : 'bg-black border-yellow-500/20 text-yellow-100/80 hover:border-yellow-400/60'}`}>
                 {v.name}
               </button>
             ))}
@@ -82,8 +82,8 @@ export default function Configurator({ onCreated }) {
       </div>
 
       <div className="max-w-6xl mx-auto mt-6 flex items-center gap-3">
-        <button onClick={createRace} disabled={loading} className="bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white px-5 py-2 rounded-lg">
-          {loading ? 'Creating…' : 'Create Race'}
+        <button onClick={createRace} disabled={loading} className="bg-yellow-500 hover:bg-yellow-400 disabled:opacity-60 text-black font-bold px-5 py-2 rounded-lg shadow-[0_0_25px_rgba(234,179,8,0.35)]">
+          {loading ? 'CREATING…' : 'START RACE'}
         </button>
         {error && <p className="text-red-400 text-sm">{error}</p>}
       </div>
