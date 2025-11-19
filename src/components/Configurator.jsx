@@ -25,7 +25,7 @@ export default function Configurator({ onCreated }) {
         setVehicles(v)
         if (m[0]) setSelectedMap(m[0].code)
       } catch (e) {
-        setError('Cannot reach backend. Please ensure it is running.')
+        setError('Backend unreachable')
       }
     }
     load()
@@ -55,38 +55,51 @@ export default function Configurator({ onCreated }) {
   }
 
   return (
-    <section className="relative py-8 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
-          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">MAP</h3>
-          <select value={selectedMap} onChange={(e) => setSelectedMap(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60">
-            {maps.map(m => (
-              <option key={m.id} value={m.code}>{m.name}</option>
-            ))}
-          </select>
+    <div className="space-y-4">
+      {/* Map */}
+      <div className="rounded-lg p-4 border border-yellow-500/20 bg-black/60">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-yellow-300 text-xs font-bold tracking-[0.3em]">MAP</h3>
+          <span className="text-[10px] text-yellow-200/60">SELECT</span>
         </div>
-        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
-          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">LAPS</h3>
-          <input type="number" min={1} max={100} value={laps} onChange={(e) => setLaps(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60" />
+        <select value={selectedMap} onChange={(e) => setSelectedMap(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60">
+          {maps.map(m => (
+            <option key={m.id} value={m.code}>{m.name}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Laps */}
+      <div className="rounded-lg p-4 border border-yellow-500/20 bg-black/60">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-yellow-300 text-xs font-bold tracking-[0.3em]">LAPS</h3>
+          <span className="text-[10px] text-yellow-200/60">1-100</span>
         </div>
-        <div className="md:col-span-1 rounded-xl p-5 border border-yellow-500/20 bg-zinc-900/70">
-          <h3 className="text-yellow-300 font-semibold mb-3 tracking-wide">VEHICLES</h3>
-          <div className="flex flex-wrap gap-2 max-h-40 overflow-auto pr-1">
-            {vehicles.map(v => (
-              <button key={v.id} onClick={() => toggleVehicle(v.code)} className={`px-3 py-2 rounded text-xs border tracking-wide ${selectedVehicles.includes(v.code) ? 'bg-yellow-500/20 border-yellow-500 text-yellow-200' : 'bg-black border-yellow-500/20 text-yellow-100/80 hover:border-yellow-400/60'}`}>
-                {v.name}
-              </button>
-            ))}
-          </div>
+        <input type="number" min={1} max={100} value={laps} onChange={(e) => setLaps(e.target.value)} className="w-full bg-black text-yellow-100 rounded px-3 py-2 border border-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/60" />
+      </div>
+
+      {/* Vehicles */}
+      <div className="rounded-lg p-4 border border-yellow-500/20 bg-black/60">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-yellow-300 text-xs font-bold tracking-[0.3em]">VEHICLES</h3>
+          <span className="text-[10px] text-yellow-200/60">FILTER</span>
+        </div>
+        <div className="flex flex-wrap gap-2 max-h-40 overflow-auto pr-1">
+          {vehicles.map(v => (
+            <button key={v.id} onClick={() => toggleVehicle(v.code)} className={`px-3 py-2 rounded text-xs border tracking-wide ${selectedVehicles.includes(v.code) ? 'bg-yellow-500/20 border-yellow-500 text-yellow-200' : 'bg-black border-yellow-500/20 text-yellow-100/80 hover:border-yellow-400/60'}`}>
+              {v.name}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-6 flex items-center gap-3">
+      {/* Action */}
+      <div className="flex items-center gap-3">
         <button onClick={createRace} disabled={loading} className="bg-yellow-500 hover:bg-yellow-400 disabled:opacity-60 text-black font-bold px-5 py-2 rounded-lg shadow-[0_0_25px_rgba(234,179,8,0.35)]">
           {loading ? 'CREATING…' : 'START RACE'}
         </button>
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && <p className="text-red-400 text-xs">{error}</p>}
       </div>
-    </section>
+    </div>
   )
 }
